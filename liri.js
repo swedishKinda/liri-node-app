@@ -33,32 +33,65 @@ inquirer.prompt([
                     name: "artist"
                 }
             ])
-            .then(function (result) {
-                let artist = result.atist;
-                let queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"
-                if(result.artist == ""){
-                    console.log("Please enter in a band");
-                } else {
-                    axios.get(queryUrl).then(
-                        function (response) {
-                            for (let i = 0; i < response.data.length; i++) {
-                                let date = moment(respose.data[i].datetime).format("MM/DD/YYYY")
-                                console.log("\n----------------------");
-                                console.log("Venue: ${response.data[i].data[i].venue.name}");
-                                console.log("Date: ${date}");
-                                console.log("-------------------------");
+                .then(function (result) {
+                    let artist = result.atist;
+                    let queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"
+                    if (result.artist == "") {
+                        console.log("Please enter in a band");
+                    } else {
+                        axios.get(queryUrl).then(
+                            function (response) {
+                                for (let i = 0; i < response.data.length; i++) {
+                                    let date = moment(respose.data[i].datetime).format("MM/DD/YYYY")
+                                    console.log("\n----------------------");
+                                    console.log("Venue: ${response.data[i].data[i].venue.name}");
+                                    console.log("Date: ${date}");
+                                    console.log("-------------------------");
+                                }
+                                fs.appendFile("log.txt", "\nArtist: ${artist}", function (error) {
+                                    if (error) {
+                                        console.log(error);
+                                    }
+                                    else {
+                                        console.log("Artist $(artist.toUpperCase()} appended to log.txt");
+                                    }
+                                });
                             }
-                            fs.appendFile("log.txt", "\nArtist: ${artist}", function(error) {
-                                if (error) {
-                                    console.log(error);
-                                }
-                                else {
-                                    console.log("Artist $(artist.toUpperCase()} appended to log.txt");
-                                }
-                            });
-                        }
-                    )
+                        )
+                    }
+                })
+        } else if (spot.choice === "spotify-this-song") {
+            console.log("\n------------------------");
+            console.log("\nHello ${spot.username}");
+            console.log("\n------------------------");
+            inquirer.prompt([
+                {
+                    type: "input",
+                    message: "What music are you interested in?",
+                    name: "track"
                 }
-            }
+            ])
+            .then(function (result) {
+                if (result.track == "") {
+                    result.track = "The Sign";
+                    spotify.search({type: "track", query: result.track})
+                    .then(function (response) {
+                        console.log("\n---------------------");
+                        console.log("Artist: ${response.tracks.items[7].album.artists[0].name}");
+                        console.log("Song: $(response.tracks.items[7].name}");
+                        console.log("Spotify Preview: ${response.tracks.items[7].album.external_urls.spotify}");
+                        console.log("Album: $(response.tracks.items[7].album.name}");
+                        console.log("\n---------------------");
+                        fs.appendFile("log.txt", "\nSong: ${result.track}", function(error) {
+                            if (error) {
+                                console.log(error);
+                            }
+                            else {
+                                console.log("Song ${result.track.toUpperCase()} appended to log.txt");
+                            }
+                        })
+                    })
+                }
+            })
         }
     })
