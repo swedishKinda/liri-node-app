@@ -99,13 +99,13 @@ inquirer.prompt([
                             .then(function (response) {
                                 for (let i = 0; i < response.tracks.items.length; i++) {
                                     console.log("\n---------------------");
-                                    console.log("Artist: ${response.tracks.items[7].album.artists[0].name}");
-                                    console.log("Song: $(response.tracks.items[7].name}");
-                                    console.log("Spotify Preview: ${response.tracks.items[7].album.external_urls.spotify}");
-                                    console.log("Album: $(response.tracks.items[7].album.name}");
+                                    console.log("Artist: ${response.tracks.items[i].album.artists[0].name}");
+                                    console.log("Song: $(response.tracks.items[i].name}");
+                                    console.log("Spotify Preview: ${response.tracks.items[i].album.external_urls.spotify}");
+                                    console.log("Album: $(response.tracks.items[i].album.name}");
                                     console.log("\n---------------------");
                                 }
-                                fs.appendFile("log.txt", "\nSong: ${result.track}", function(error) {
+                                fs.appendFile("log.txt", "\nSong: ${result.track}", function (error) {
                                     if (error) {
                                         console.log(error);
                                     }
@@ -114,16 +114,34 @@ inquirer.prompt([
                                     }
                                 });
                             })
-                            .catch(function(error) {
+                            .catch(function (error) {
                                 console.log(err);
                             });
                     }
                 })
         } else if (res.choice === "do-what-it-says") {
-            fs.readFile("random.txt", "utf8", function(error,data) {
+            fs.readFile("random.txt", "utf8", function (error, data) {
                 if (error) {
                     return console.log(error);
                 }
-            })
-        }
+                spotify.search({ type: "track", query: data })
+                    .then(function (response) {
+                        for (let i = 0; i < response.tracks.items.length; i++) {
+                            console.log("\n---------------------");
+                            console.log("Artist: ${response.tracks.items[i].album.artists[0].name}");
+                            console.log("Song: $(response.tracks.items[i].name}");
+                            console.log("Spotify Preview: ${response.tracks.items[i].album.external_urls.spotify}");
+                            console.log("Album: $(response.tracks.items[i].album.name}");
+                            console.log("\n---------------------");
+                        }
+                        fs.appendFile("log.txt", "\nSong: ${data}", function(error) {
+                            if (error) {
+                                console.log(error);
+                            }
+                            else {
+                                console.log("Song ${data.toUpperCase()} added to log.txt");
+                            }
+                        })
+                    })
+            }
     })
