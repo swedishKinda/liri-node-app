@@ -50,12 +50,11 @@ inquirer.prompt([
                                     console.log(`Venue: ${response.data[i].venue.name}`);
                                     fs.appendFileSync("log.txt", `\nVenue: ${response.data[i].venue.name}`);
                                     console.log(`City: ${response.data[i].venue.city}`);
-                                    fs.appendFileSync(`City: ${response.data[i].venue.city}`);
+                                    fs.appendFileSync("log.txt", `\nCity: ${response.data[i].venue.city}`);
                                     console.log(`Date: ${date}`);
-                                    // fs.appendFileSync(`Date: ${date}`);
+                                    fs.appendFileSync("log.txt", `\nDate: ${date}`);
                                     // Can't get date to append w/o errors
                                     console.log("-------------------------");
-                                    fs.appendFileSync("-----------------------");
                                 }
                                 // fs.appendFile("log.txt", `\nArtist: ${artist}`, `\nVenue: ${response}`, function (err) {
                                 //     if (err) {
