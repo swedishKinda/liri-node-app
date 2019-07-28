@@ -79,17 +79,17 @@ inquirer.prompt([
                         spotify.search({ type: "track", query: result.track })
                             .then(function (response) {
                                 console.log("\n---------------------");
-                                console.log("Artist: ${response.tracks.items[7].album.artists[0].name}");
-                                console.log("Song: $(response.tracks.items[7].name}");
-                                console.log("Spotify Preview: ${response.tracks.items[7].album.external_urls.spotify}");
-                                console.log("Album: $(response.tracks.items[7].album.name}");
+                                console.log(`Artist: ${response.tracks.items[7].album.artists[0].name}`);
+                                console.log(`Song: ${response.tracks.items[7].name}`);
+                                console.log(`Spotify Preview: ${response.tracks.items[7].album.external_urls.spotify}`);
+                                console.log(`Album: ${response.tracks.items[7].album.name}`);
                                 console.log("\n---------------------");
-                                fs.appendFile("log.txt", "\nSong: ${result.track}", function (error) {
+                                fs.appendFile("log.txt", `\nSong: ${result.track}`, function (error) {
                                     if (error) {
                                         console.log(error);
                                     }
                                     else {
-                                        console.log("Song ${result.track.toUpperCase()} appended to log.txt");
+                                        console.log(`Song ${result.track.toUpperCase()} appended to log.txt`);
                                     }
                                 });
                             })
@@ -101,18 +101,18 @@ inquirer.prompt([
                             .then(function (response) {
                                 for (let i = 0; i < response.tracks.items.length; i++) {
                                     console.log("\n---------------------");
-                                    console.log("Artist: ${response.tracks.items[i].album.artists[0].name}");
-                                    console.log("Song: $(response.tracks.items[i].name}");
-                                    console.log("Spotify Preview: ${response.tracks.items[i].album.external_urls.spotify}");
-                                    console.log("Album: $(response.tracks.items[i].album.name}");
+                                    console.log(`Artist: ${response.tracks.items[i].album.artists[0].name}`);
+                                    console.log(`Song: ${response.tracks.items[i].name}`);
+                                    console.log(`Spotify Preview: ${response.tracks.items[i].album.external_urls.spotify}`);
+                                    console.log(`Album: ${response.tracks.items[i].album.name}`);
                                     console.log("\n---------------------");
                                 }
-                                fs.appendFile("log.txt", "\nSong: ${result.track}", function (error) {
+                                fs.appendFile("log.txt", `\nSong: ${result.track}`, function (error) {
                                     if (error) {
                                         console.log(error);
                                     }
                                     else {
-                                        console.log("Song ${result.track.toUpperCase()} appended to log.txt");
+                                        console.log(`Song ${result.track.toUpperCase()} appended to log.txt`);
                                     }
                                 });
                             })
@@ -130,18 +130,18 @@ inquirer.prompt([
                     .then(function (response) {
                         for (let i = 0; i < response.tracks.items.length; i++) {
                             console.log("\n---------------------");
-                            console.log("Artist: ${response.tracks.items[i].album.artists[0].name}");
-                            console.log("Song: $(response.tracks.items[i].name}");
-                            console.log("Spotify Preview: ${response.tracks.items[i].album.external_urls.spotify}");
-                            console.log("Album: $(response.tracks.items[i].album.name}");
+                            console.log(`Artist: ${response.tracks.items[i].album.artists[0].name}`);
+                            console.log(`Song: ${response.tracks.items[i].name}`);
+                            console.log(`Spotify Preview: ${response.tracks.items[i].album.external_urls.spotify}`);
+                            console.log(`Album: ${response.tracks.items[i].album.name}`);
                             console.log("\n---------------------");
                         }
-                        fs.appendFile("log.txt", "\nSong: ${data}", function (error) {
+                        fs.appendFile("log.txt", `\nSong: ${data}`, function (error) {
                             if (error) {
                                 console.log(error);
                             }
                             else {
-                                console.log("Song ${data.toUpperCase()} added to log.txt");
+                                console.log(`Song ${data.toUpperCase()} added to log.txt`);
                             }
                         });
                     })
@@ -149,7 +149,7 @@ inquirer.prompt([
         }
         else if (userChoice.choice === "movie-this") {
             console.log("\n---------------------");
-            console.log("\nHello ${res.username}");
+            console.log(`\nHello ${res.username}`);
             console.log("\n---------------------");
             inquirer.prompt([
                 {
