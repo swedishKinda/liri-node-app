@@ -16,7 +16,7 @@ inquirer.prompt([
     },
     {
         type: "list",
-        message: "Would you like to look up a band on Spotify? Or look up if said band has any shows coming up? Or maybe you just want to look up a movie?",
+        message: "Would you like to look up a song on Spotify? Or check if a band you like has any shows coming up? Or maybe you just want to look up a movie?",
         choices: ["concert-this", "spotify-this-song", "movie-this", "do-what-it-says"],
         name: "choice"
     },
