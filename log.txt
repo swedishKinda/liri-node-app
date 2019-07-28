@@ -7,3 +7,7 @@ Artist: ${artist}
 Artist: ${artist}
 Artist: Vundabar
 Artist: Vundabar
+Artist: Vundabar
+Artist: Vundabar
+Movie: ${result.movie}
+Movie: ${result.movie}

@@ -22,10 +22,10 @@ inquirer.prompt([
     },
 ])
 
-    .then(function (concert) {
-        if (concert.choice === "concert-this") {
+    .then(function (userChoice) {
+        if (userChoice.choice === "concert-this") {
             console.log("\n-----------------------");
-            console.log("\nHello ${concert.username}");
+            console.log(`\nHello ${userChoice.username}`);
             console.log("\n------------------------");
             inquirer.prompt([
                 {
@@ -62,9 +62,9 @@ inquirer.prompt([
                         )
                     }
                 })
-        } else if (spot.choice === "spotify-this-song") {
+        } else if (userChoice.choice === "spotify-this-song") {
             console.log("\n------------------------");
-            console.log("\nHello ${spot.username}");
+            console.log(`\nHello ${userChoice.username}`);
             console.log("\n------------------------");
             inquirer.prompt([
                 {
@@ -117,11 +117,11 @@ inquirer.prompt([
                                 });
                             })
                             .catch(function (error) {
-                                console.log(err);
+                                console.log(error);
                             });
                     }
                 })
-        } else if (res.choice === "do-what-it-says") {
+        } else if (userChoice.choice === "do-what-it-says") {
             fs.readFile("random.txt", "utf8", function (error, data) {
                 if (error) {
                     return console.log(error);
@@ -147,7 +147,7 @@ inquirer.prompt([
                     })
             })
         }
-        else if (res.choice === "movie-this") {
+        else if (userChoice.choice === "movie-this") {
             console.log("\n---------------------");
             console.log("\nHello ${res.username}");
             console.log("\n---------------------");
@@ -162,23 +162,23 @@ inquirer.prompt([
                     axios.get("http://www.omdbapi.com/?t=Mr.Nobody&y=&plot=short&apikey=trilogy").then(
                         function (response) {
                             console.log("\n---------------------");
-                            console.log("Title: ${response.data.Title");
-                            console.log("Year: ${response.data.Year}");
-                            console.log("IMDB Rating: ${response.data.imdbRating");
-                            console.log("Rotten Tomatoes Rating: ${response.data.tomatoRating");
-                            console.log("Country: ${response.data.Country}");
-                            console.log("Language: ${response.data.Language}");
-                            console.log("Plot: ${response.data.Plot}");
-                            console.log("Actors: ${response.data.Actors}");
+                            console.log(`Title: ${response.data.Title}`);
+                            console.log(`Year: ${response.data.Year}`);
+                            console.log(`IMDB Rating: ${response.data.imdbRating}`);
+                            console.log(`Rotten Tomatoes Rating: ${response.data.tomatoRating}`);
+                            console.log(`Country: ${response.data.Country}`);
+                            console.log(`Language: ${response.data.Language}`);
+                            console.log(`Plot: ${response.data.Plot}`);
+                            console.log(`Actors: ${response.data.Actors}`);
                             console.log("\n---------------------");
                         }
                     )
-                    fs.appendFile("log.txt", "\nMovie: ${'Mr.Nobody'}", function (error) {
+                    fs.appendFile("log.txt", `\nMovie: ${'Mr.Nobody'}`, function (error) {
                         if (error) {
                             console.log(error);
                         }
                         else {
-                            console.log("Movie ${'Mr.Nobody'} appended to log.txt")
+                            console.log(`Movie ${'Mr.Nobody'} appended to log.txt`)
                         }
                     });
                 }
@@ -187,30 +187,30 @@ inquirer.prompt([
                         axios.get("http://www.omdbapi.com/?t=" + result.movie + "&y=&plot=short&apikey=trilogy").then(
                             function (response) {
                                 if (response.data.Error) {
-                                    console.log("Movie no found");
+                                    console.log("Movie not found");
                                 }
                                 else if (result.movie) {
                                     console.log("\n---------------------");
-                                    console.log("Title: ${response.data.Title");
-                                    console.log("Year: ${response.data.Year}");
-                                    console.log("IMDB Rating: ${response.data.imdbRating");
-                                    console.log("Rotten Tomatoes Rating: ${response.data.tomatoRating");
-                                    console.log("Country: ${response.data.Country}");
-                                    console.log("Language: ${response.data.Language}");
-                                    console.log("Plot: ${response.data.Plot}");
-                                    console.log("Actors: ${response.data.Actors}");
+                                    console.log(`Title: ${response.data.Title}`);
+                                    console.log(`Year: ${response.data.Year}`);
+                                    console.log(`IMDB Rating: ${response.data.imdbRating}`);
+                                    console.log(`Rotten Tomatoes Rating: ${response.data.tomatoRating}`);
+                                    console.log(`Country: ${response.data.Country}`);
+                                    console.log(`Language: ${response.data.Language}`);
+                                    console.log(`Plot: ${response.data.Plot}`);
+                                    console.log(`Actors: ${response.data.Actors}`);
                                     console.log("\n---------------------");
                                 }
                             }
                         )
                     }
                     omdbMovie();
-                    fs.appendFile("log.txt", "\nMovie: ${result.movie}", function (error) {
+                    fs.appendFile("log.txt", `\nMovie: ${result.movie}`, function (error) {
                         if (error) {
                             console.log(error);
                         }
                         else {
-                            console.log("Movie ${result.movie.toUpperCase()} appended to log.txt");
+                            console.log(`Movie ${result.movie.toUpperCase()} appended to log.txt`);
                         }
                     });
                 }
