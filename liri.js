@@ -69,7 +69,7 @@ inquirer.prompt([
             inquirer.prompt([
                 {
                     type: "input",
-                    message: "What music are you interested in?",
+                    message: "What song are you interested in?",
                     name: "track"
                 }
             ])
@@ -79,10 +79,10 @@ inquirer.prompt([
                         spotify.search({ type: "track", query: result.track })
                             .then(function (response) {
                                 console.log("\n---------------------");
-                                console.log(`Artist: ${response.tracks.items[7].album.artists[0].name}`);
-                                console.log(`Song: ${response.tracks.items[7].name}`);
-                                console.log(`Spotify Preview: ${response.tracks.items[7].album.external_urls.spotify}`);
-                                console.log(`Album: ${response.tracks.items[7].album.name}`);
+                                console.log(`Artist: ${response.tracks.items[2].album.artists[0].name}`);
+                                console.log(`Song: ${response.tracks.items[2].name}`);
+                                console.log(`Spotify Preview: ${response.tracks.items[2].album.external_urls.spotify}`);
+                                console.log(`Album: ${response.tracks.items[2].album.name}`);
                                 console.log("\n---------------------");
                                 fs.appendFile("log.txt", `\nSong: ${result.track}`, function (error) {
                                     if (error) {
@@ -149,7 +149,7 @@ inquirer.prompt([
         }
         else if (userChoice.choice === "movie-this") {
             console.log("\n---------------------");
-            console.log(`\nHello ${res.username}`);
+            console.log(`\nHello ${userChoice.username}`);
             console.log("\n---------------------");
             inquirer.prompt([
                 {
