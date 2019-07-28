@@ -45,19 +45,26 @@ inquirer.prompt([
                                 for (let i = 0; i < response.data.length; i++) {
                                     let date = moment(response.data[i].datetime).format("MM/DD/YYYY")
                                     console.log("\n----------------------");
+                                    fs.appendFileSync("log.txt", "\n--------------------");
+                                    fs.appendFileSync("log.txt", `\nArtist: ${artist}`);
                                     console.log(`Venue: ${response.data[i].venue.name}`);
+                                    fs.appendFileSync("log.txt", `\nVenue: ${response.data[i].venue.name}`);
                                     console.log(`City: ${response.data[i].venue.city}`);
+                                    fs.appendFileSync(`City: ${response.data[i].venue.city}`);
                                     console.log(`Date: ${date}`);
+                                    // fs.appendFileSync(`Date: ${date}`);
+                                    // Can't get date to append w/o errors
                                     console.log("-------------------------");
+                                    fs.appendFileSync("-----------------------");
                                 }
-                                fs.appendFile("log.txt", `\nArtist: ${artist}`, function (error) {
-                                    if (error) {
-                                        console.log(error);
-                                    }
-                                    else {
-                                        console.log(`Artist ${artist.toUpperCase()} appended to log.txt`);
-                                    }
-                                });
+                                // fs.appendFile("log.txt", `\nArtist: ${artist}`, `\nVenue: ${response}`, function (err) {
+                                //     if (err) {
+                                //         console.log(err);
+                                //     }
+                                //     else {
+                                //         console.log(`Artist ${artist.toUpperCase()} appended to log.txt`);
+                                //     }
+                                // });
                             }
                         )
                     }
@@ -79,71 +86,86 @@ inquirer.prompt([
                         spotify.search({ type: "track", query: result.track })
                             .then(function (response) {
                                 console.log("\n---------------------");
+                                fs.appendFileSync("log.txt", "\n-----------------------");
                                 console.log(`Artist: ${response.tracks.items[2].album.artists[0].name}`);
+                                fs.appendFileSync("log.txt", `\nArtist: ${response.tracks.items[2].album.artists[0].name}`);
                                 console.log(`Song: ${response.tracks.items[2].name}`);
+                                fs.appendFileSync("log.txt", `\nSong: ${response.tracks.items[2].name}`);
                                 console.log(`Spotify Preview: ${response.tracks.items[2].album.external_urls.spotify}`);
+                                fs.appendFileSync("log.txt", `\nSpotify Preview: ${response.tracks.items[2].album.external_urls.spotify}`);
                                 console.log(`Album: ${response.tracks.items[2].album.name}`);
+                                fs.appendFileSync("log.txt", `\nAlbum: ${response.tracks.items[2].album.name}`);
                                 console.log("\n---------------------");
-                                fs.appendFile("log.txt", `\nSong: ${result.track}`, function (error) {
-                                    if (error) {
-                                        console.log(error);
-                                    }
-                                    else {
-                                        console.log(`Song ${result.track.toUpperCase()} appended to log.txt`);
-                                    }
-                                });
+                                // fs.appendFile("log.txt", `\nSong: ${result.track}`, function (err) {
+                                //     if (err) {
+                                //         console.log(err);
+                                //     }
+                                //     else {
+                                //         console.log(`Song ${result.track.toUpperCase()} appended to log.txt`);
+                                //     }
+                                // });
                             })
-                            .catch(function (error) {
-                                console.log(error);
+                            .catch(function (err) {
+                                console.log(err);
                             });
                     } else {
                         spotify.search({ type: "track", query: result.track })
                             .then(function (response) {
                                 for (let i = 0; i < response.tracks.items.length; i++) {
                                     console.log("\n---------------------");
+                                    fs.appendFileSync("log.txt", "\n-----------------------");
                                     console.log(`Artist: ${response.tracks.items[i].album.artists[0].name}`);
+                                    fs.appendFileSync("log.txt", `\nArtist: ${response.tracks.items[i].album.artists[0].name}`);
                                     console.log(`Song: ${response.tracks.items[i].name}`);
+                                    fs.appendFileSync("log.txt", `\nSong: ${response.tracks.items[i].name}`);
                                     console.log(`Spotify Preview: ${response.tracks.items[i].album.external_urls.spotify}`);
+                                    fs.appendFileSync("log.txt", `\nSpotify Preview: ${response.tracks.items[i].album.external_urls.spotify}`);
                                     console.log(`Album: ${response.tracks.items[i].album.name}`);
+                                    fs.appendFileSync("log.txt", `\nAlbum: ${response.tracks.items[i].album.name}`);
                                     console.log("\n---------------------");
+                                    // fs.appendFile("log.txt", `\nSong: ${result.track}`, function (err) {
+                                    //     if (err) {
+                                    //         console.log(err);
+                                    //     }
+                                    //     else {
+                                    //         console.log(`Song ${result.track.toUpperCase()} appended to log.txt`);
+                                    //     }
+                                    // });
                                 }
-                                fs.appendFile("log.txt", `\nSong: ${result.track}`, function (error) {
-                                    if (error) {
-                                        console.log(error);
-                                    }
-                                    else {
-                                        console.log(`Song ${result.track.toUpperCase()} appended to log.txt`);
-                                    }
-                                });
                             })
-                            .catch(function (error) {
-                                console.log(error);
+                            .catch(function (err) {
+                                console.log(err);
                             });
                     }
                 })
         } else if (userChoice.choice === "do-what-it-says") {
-            fs.readFile("random.txt", "utf8", function (error, data) {
-                if (error) {
-                    return console.log(error);
+            fs.readFile("random.txt", "utf8", function (err, data) {
+                if (err) {
+                    return console.log(err);
                 }
                 spotify.search({ type: "track", query: data })
                     .then(function (response) {
                         for (let i = 0; i < response.tracks.items.length; i++) {
                             console.log("\n---------------------");
+                            fs.appendFileSync("log.txt", "\n-----------------------");
                             console.log(`Artist: ${response.tracks.items[i].album.artists[0].name}`);
+                            fs.appendFileSync("log.txt", `\nArtist: ${response.tracks.items[i].album.artists[0].name}`);
                             console.log(`Song: ${response.tracks.items[i].name}`);
+                            fs.appendFileSync("log.txt", `\nSong: ${response.tracks.items[i].name}`);
                             console.log(`Spotify Preview: ${response.tracks.items[i].album.external_urls.spotify}`);
+                            fs.appendFileSync("log.txt", `\nSpotify Preview: ${response.tracks.items[i].album.external_urls.spotify}`);
                             console.log(`Album: ${response.tracks.items[i].album.name}`);
+                            fs.appendFileSync("log.txt", `\nAlbum: ${response.tracks.items[i].album.name}`);
                             console.log("\n---------------------");
+                            // fs.appendFile("log.txt", `\nSong: ${result.track}`, function (err) {
+                            //     if (err) {
+                            //         console.log(err);
+                            //     }
+                            //     else {
+                            //         console.log(`Song ${result.track.toUpperCase()} appended to log.txt`);
+                            //     }
+                            // });
                         }
-                        fs.appendFile("log.txt", `\nSong: ${data}`, function (error) {
-                            if (error) {
-                                console.log(error);
-                            }
-                            else {
-                                console.log(`Song ${data.toUpperCase()} added to log.txt`);
-                            }
-                        });
                     })
             })
         }
@@ -162,57 +184,75 @@ inquirer.prompt([
                     axios.get("http://www.omdbapi.com/?t=Mr.Nobody&y=&plot=short&apikey=trilogy").then(
                         function (response) {
                             console.log("\n---------------------");
+                            fs.appendFileSync("log.txt", "\n--------------------------");
                             console.log(`Title: ${response.data.Title}`);
+                            fs.appendFileSync("log.txt", `\nTitle: ${response.data.Title}`);
                             console.log(`Year: ${response.data.Year}`);
+                            fs.appendFileSync("log.txt", `\nYear: ${response.data.Year}`);
                             console.log(`IMDB Rating: ${response.data.imdbRating}`);
+                            fs.appendFileSync("log.txt", `\nIMDB Rating: ${response.data.imdbRating}`);
                             console.log(`Rotten Tomatoes Rating: ${response.data.tomatoRating}`);
+                            fs.appendFileSync("log.txt", `\nRotten Tomatoes Rating: ${response.data.tomatoRating}`);
                             console.log(`Country: ${response.data.Country}`);
+                            fs.appendFileSync("log.txt", `\nCountry: ${response.data.Country}`);
                             console.log(`Language: ${response.data.Language}`);
+                            fs.appendFileSync("log.txt", `\nLanguage: ${response.data.Language}`);
                             console.log(`Plot: ${response.data.Plot}`);
+                            fs.appendFileSync("log.txt", `\nPlot: ${response.data.Plot}`);
                             console.log(`Actors: ${response.data.Actors}`);
+                            fs.appendFileSync("log.txt", `\nActors: ${response.data.Actors}`);
                             console.log("\n---------------------");
                         }
                     )
-                    fs.appendFile("log.txt", `\nMovie: ${'Mr.Nobody'}`, function (error) {
-                        if (error) {
-                            console.log(error);
-                        }
-                        else {
-                            console.log(`Movie ${'Mr.Nobody'} appended to log.txt`)
-                        }
-                    });
+                    // fs.appendFile("log.txt", `\nMovie: ${'Mr.Nobody'}`, function (err) {
+                    //     if (err) {
+                    //         console.log(err);
+                    //     }
+                    //     else {
+                    //         console.log(`Movie ${'Mr.Nobody'} appended to log.txt`)
+                    //     }
+                    // });
                 }
                 else {
                     let omdbMovie = function () {
                         axios.get("http://www.omdbapi.com/?t=" + result.movie + "&y=&plot=short&apikey=trilogy").then(
                             function (response) {
-                                if (response.data.Error) {
+                                if (response.data.err) {
                                     console.log("Movie not found");
                                 }
                                 else if (result.movie) {
                                     console.log("\n---------------------");
+                                    fs.appendFileSync("log.txt", "\n--------------------------");
                                     console.log(`Title: ${response.data.Title}`);
+                                    fs.appendFileSync("log.txt", `\nTitle: ${response.data.Title}`);
                                     console.log(`Year: ${response.data.Year}`);
+                                    fs.appendFileSync("log.txt", `\nYear: ${response.data.Year}`);
                                     console.log(`IMDB Rating: ${response.data.imdbRating}`);
+                                    fs.appendFileSync("log.txt", `\nIMDB Rating: ${response.data.imdbRating}`);
                                     console.log(`Rotten Tomatoes Rating: ${response.data.tomatoRating}`);
+                                    fs.appendFileSync("log.txt", `\nRotten Tomatoes Rating: ${response.data.tomatoRating}`);
                                     console.log(`Country: ${response.data.Country}`);
+                                    fs.appendFileSync("log.txt", `\nCountry: ${response.data.Country}`);
                                     console.log(`Language: ${response.data.Language}`);
+                                    fs.appendFileSync("log.txt", `\nLanguage: ${response.data.Language}`);
                                     console.log(`Plot: ${response.data.Plot}`);
+                                    fs.appendFileSync("log.txt", `\nPlot: ${response.data.Plot}`);
                                     console.log(`Actors: ${response.data.Actors}`);
+                                    fs.appendFileSync("log.txt", `\nActors: ${response.data.Actors}`);
                                     console.log("\n---------------------");
                                 }
                             }
                         )
                     }
                     omdbMovie();
-                    fs.appendFile("log.txt", `\nMovie: ${result.movie}`, function (error) {
-                        if (error) {
-                            console.log(error);
-                        }
-                        else {
-                            console.log(`Movie ${result.movie.toUpperCase()} appended to log.txt`);
-                        }
-                    });
+                    // fs.appendFile("log.txt", `\nMovie: ${result.movie}`, function (err) {
+                    //     if (err) {
+                    //         console.log(err);
+                    //     }
+                    //     else {
+                    //         console.log(`Movie ${result.movie.toUpperCase()} appended to log.txt`);
+                    //     }
+                    // });
                 }
             })
         }
