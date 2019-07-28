@@ -134,14 +134,84 @@ inquirer.prompt([
                             console.log("Album: $(response.tracks.items[i].album.name}");
                             console.log("\n---------------------");
                         }
-                        fs.appendFile("log.txt", "\nSong: ${data}", function(error) {
+                        fs.appendFile("log.txt", "\nSong: ${data}", function (error) {
                             if (error) {
                                 console.log(error);
                             }
                             else {
                                 console.log("Song ${data.toUpperCase()} added to log.txt");
                             }
-                        })
+                        });
                     })
-            }
+            })
+        }
+        else if (res.choice === "movie-this") {
+            console.log("\n---------------------");
+            console.log("\nHello ${res.username}");
+            console.log("\n---------------------");
+            inquirer.prompt([
+                {
+                    type: "input",
+                    message: "What film would you like to search for?",
+                    name: "movie"
+                }
+            ]).then(function (result) {
+                if (result.movie == "") {
+                    axios.get("http://www.omdbapi.com/?t=Mr.Nobody&y=&plot=short&apikey=trilogy").then(
+                        function (response) {
+                            console.log("\n---------------------");
+                            console.log("Title: ${response.data.Title");
+                            console.log("Year: ${response.data.Year}");
+                            console.log("IMDB Rating: ${response.data.imdbRating");
+                            console.log("Rotten Tomatoes Rating: ${response.data.tomatoRating");
+                            console.log("Country: ${response.data.Country}");
+                            console.log("Language: ${response.data.Language}");
+                            console.log("Plot: ${response.data.Plot}");
+                            console.log("Actors: ${response.data.Actors}");
+                            console.log("\n---------------------");
+                        }
+                    )
+                    fs.appendFile("log.txt", "\nMovie: ${'Mr.Nobody'}", function (error) {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            console.log("Movie ${'Mr.Nobody'} appended to log.txt")
+                        }
+                    });
+                }
+                else {
+                    let omdbMovie = function () {
+                        axios.get("http://www.omdbapi.com/?t=" + result.movie + "&y=&plot=short&apikey=trilogy").then(
+                            function (response) {
+                                if (response.data.Error) {
+                                    console.log("Movie no found");
+                                }
+                                else if (result.movie) {
+                                    console.log("\n---------------------");
+                                    console.log("Title: ${response.data.Title");
+                                    console.log("Year: ${response.data.Year}");
+                                    console.log("IMDB Rating: ${response.data.imdbRating");
+                                    console.log("Rotten Tomatoes Rating: ${response.data.tomatoRating");
+                                    console.log("Country: ${response.data.Country}");
+                                    console.log("Language: ${response.data.Language}");
+                                    console.log("Plot: ${response.data.Plot}");
+                                    console.log("Actors: ${response.data.Actors}");
+                                    console.log("\n---------------------");
+                                }
+                            }
+                        )
+                    }
+                    omdbMovie();
+                    fs.appendFile("log.txt", "\nMovie: ${result.movie}", function (error) {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            console.log("Movie ${result.movie.toUpperCase()} appended to log.txt");
+                        }
+                    });
+                }
+            })
+        }
     })
