@@ -35,7 +35,7 @@ inquirer.prompt([
                 }
             ])
                 .then(function (result) {
-                    let artist = result.atist;
+                    let artist = result.artist;
                     let queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"
                     if (result.artist == "") {
                         console.log("Please enter in a band");
@@ -43,18 +43,19 @@ inquirer.prompt([
                         axios.get(queryUrl).then(
                             function (response) {
                                 for (let i = 0; i < response.data.length; i++) {
-                                    let date = moment(respose.data[i].datetime).format("MM/DD/YYYY")
+                                    let date = moment(response.data[i].datetime).format("MM/DD/YYYY")
                                     console.log("\n----------------------");
-                                    console.log("Venue: ${response.data[i].data[i].venue.name}");
-                                    console.log("Date: ${date}");
+                                    console.log(`Venue: ${response.data[i].venue.name}`);
+                                    console.log(`City: ${response.data[i].venue.city}`);
+                                    console.log(`Date: ${date}`);
                                     console.log("-------------------------");
                                 }
-                                fs.appendFile("log.txt", "\nArtist: ${artist}", function (error) {
+                                fs.appendFile("log.txt", `\nArtist: ${artist}`, function (error) {
                                     if (error) {
                                         console.log(error);
                                     }
                                     else {
-                                        console.log("Artist $(artist.toUpperCase()} appended to log.txt");
+                                        console.log(`Artist ${artist.toUpperCase()} appended to log.txt`);
                                     }
                                 });
                             }
