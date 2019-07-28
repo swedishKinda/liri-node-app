@@ -6,11 +6,12 @@ let fs = require("fs");
 let axios = require("axios");
 var Spotify = require("node-spotify-api");
 let spotify = new Spotify(keys.spotify);
+let inquirer = require("inquirer");
 
 inquirer.prompt([
     {
         type: "input",
-        message: "Hi, what may I call you",
+        message: "Hi, what may I call you?",
         name: "username"
     },
     {
