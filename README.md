@@ -15,8 +15,6 @@ Made a js file with api calls and console logs.
 - Console logs
 - Inquirer npm
 - Spotify npm
-- Bandsintown npm
-- IMDB npm
 - Axios npm
 - Moment npm
 - Fs npm
