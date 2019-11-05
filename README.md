@@ -24,7 +24,21 @@ Made a js file with api calls and console logs.
 First clone or download the repo. Then open a console program of your choice and navigate to the root file. Then enter in "node liri.js" into your console and the app will give you all the instructions you need. FYI you will have to re-enter "node liri.js" after you run a function, I will be working on making it more streamlined so it will send the user back to the main menu.
 
 # Getting Started
-If you want to edit this code. Just open any of the files and copy-&-paste the code into any coding program of your choice, perform a git clone, or download straight from github.
+Click on green button "Clone or download" and copy link. Run a "git clone {link}" in [Git Bash](https://gitforwindows.org/ "Git bash download page")(PC) or Terminal(Mac).
+
+enter in "cd" space "name of app" and then run the following command:
+
+```
+npm install
+```
+
+This should install all necessary node modules.
+
+After installations are completed run the following command:
+
+```
+node liri.js
+```
 
 # Prequisites
 Have node.js installed.
